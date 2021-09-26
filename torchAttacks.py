@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Created on Thu Jan 28 12:54:35 2021
 
-@author: jiefei
-"""
 from __future__ import print_function
 import sys
 import os
