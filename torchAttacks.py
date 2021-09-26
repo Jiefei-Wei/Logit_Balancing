@@ -35,12 +35,7 @@ parser.add_argument('--random',
                     default=True,
                     help='random initialization for PGD')
 parser.add_argument('--model-path',
-                    #190 gn64
-                    # default='/media/jiefei/Guji Mind1/Guji_Projects/Checkpoints/GN_008/WideResNet_128_0_100_Adam_sdlog008d_200_GN32.pth',
-                    # default='/media/jiefei/Guji Mind1/Guji_Projects/Checkpoints/GN_004/WideResNet_128_0_100_Adam_sdlog004d_180_GN32.pth',
-                    # default='/media/jiefei/Guji Mind1/Guji_Projects/Checkpoints/GN_004/WideResNet_128_0_100_Adamcifar100_sdlog004d_150_GN16.pth',
-                    # default='/media/jiefei/Guji Mind1/Guji_Projects/Checkpoints/GN_001/WideResNet_128_0_100_Adam_sdlog001d_193_GN.pth',
-                    default='/media/jiefei/Guji Mind1/Guji_Projects/Checkpoints/GN_002/WideResNet_128_0_100_Adam_sdlog002d_193_GN.pth',
+                    default='./Pre-trained_Logit-Balancing_Model.pth',
                     # default='./model_cifar_wrn.pt',
                     # default='./TRADES-AWP_cifar10_linf_wrn34-10.pt',
                     help='model for white-box attack evaluation')
@@ -55,7 +50,7 @@ transform_test = transforms.Compose([transforms.ToTensor(),])
 testset = torchvision.datasets.CIFAR10(root='../data', train=False, download=True, transform=transform_test)
 test_loader = torch.utils.data.DataLoader(testset, batch_size=args.test_batch_size, shuffle=False, **kwargs)
 
-def cw_whitebox(model, device, test_loader):
+def testAttacks(model, device, test_loader):
     model.eval()
     robust_err_total = 0
     # filehandle = open('./results/logitmin_APGD_L.txt', 'w')
@@ -88,20 +83,7 @@ def cw_whitebox(model, device, test_loader):
         
         # attack = torchattacks.AutoAttack(model, norm='Linf', eps=8./255., version='standard', n_classes=10, seed=None, verbose=False)
         
-        # repair = torchattacks.LOGITREPAIR(model, eps=8./255., steps=20, random_start=False)
-        
-        
-        
         adv_images = attack(X, y)
-        # repair_adv = repair(adv_images,y)
-        
-        # GN = torchattacks.GN(model, sigma = 16./255.)
-        # mask_images = GN(adv_images, y)
-        
-
-        
-        
-        
         
         err_cw = (model(adv_images).data.max(1)[1] != y.data).float().sum()
         robust_err_total += err_cw
@@ -143,7 +125,7 @@ def main():
 
     # model.load_state_dict(torch.load(args.model_path))
 
-    cw_whitebox(model, device, test_loader)
+    testAttacks(model, device, test_loader)
 
 
 if __name__ == '__main__':
