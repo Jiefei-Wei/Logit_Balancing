@@ -1,17 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Created on Wed Apr 28 14:25:26 2021
-
-@author: jiefei
-"""
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Dec 11 20:56:31 2020
-
-@author: jiefei
-"""
 
 '''Train CIFAR10 Logit_Balancing with PyTorch.'''
 
