@@ -197,7 +197,7 @@ def main():
             assert os.path.isdir('/media/jiefei/Guji Mind1/Guji_Projects/Checkpoints/stdlog002/WideResNet_128_0_100_Adam_sdlog002d_92.pth'.format(args.target ,args.optim)), 'Error: no checkpoint directory found!'
 
 
-    # if device == 'cuda':
+    if device == 'cuda':
     net = torch.nn.DataParallel(net)
     cudnn.benchmark = True
         
