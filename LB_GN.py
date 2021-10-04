@@ -175,14 +175,14 @@ def main():
     if args.resume:
     # Load checkpoint.
         print('==> Resuming from checkpoint..')
-        if os.path.isfile('/media/jiefei/Guji Mind1/Guji_Projects/Checkpoints/stdlog001/WideResNet_128_0_100_Adam_sdlog001d_92.pth'.format(args.target ,args.optim)):
-            checkpoint = torch.load('/media/jiefei/Guji Mind1/Guji_Projects/Checkpoints/stdlog001/WideResNet_128_0_100_Adam_sdlog001d_92.pth'.format(args.target ,args.optim))
+        if os.path.isfile('checkPoints.pth'.format(args.target ,args.optim)):
+            checkpoint = torch.load('checkPoints.pth'.format(args.target ,args.optim))
             net.load_state_dict(checkpoint['net'])
             start_epoch = checkpoint['epoch']
             bestAccuracy = checkpoint['acc']
             print('==> Resuming from epoch: {}\n'.format(start_epoch))
         else:
-            assert os.path.isdir('/media/jiefei/Guji Mind1/Guji_Projects/Checkpoints/stdlog002/WideResNet_128_0_100_Adam_sdlog002d_92.pth'.format(args.target ,args.optim)), 'Error: no checkpoint directory found!'
+            assert os.path.isdir('/checkPoints.pth'.format(args.target ,args.optim)), 'Error: no checkpoint directory found!'
 
 
     if device == 'cuda':
@@ -205,7 +205,7 @@ def main():
     
     LBWeight=args.LBWeight
     
-    filename = "/media/jiefei/Guji Mind1/Guji_Projects/Checkpoints/GN_008/LB08_gn32.txt"
+    filename = "saveLog.txt"
     file_exists = os.path.isfile(filename) 
  
     if file_exists:
@@ -228,7 +228,7 @@ def main():
                 'epoch': epoch+start_epoch,
             }
 
-            torch.save(state, '/media/jiefei/Guji Mind1/Guji_Projects/Checkpoints/GN_008/WideResNet_128_0_{}_{}_sdlog008d_{}_GN32.pth'.format(args.target, args.optim, epoch))
+            torch.save(state, 'saveCheckPoints.pth'.format(args.target, args.optim, epoch))
                 
         if bestAccuracy > args.target :
             print('Accuarcy over {}%! Stop Training...'.format(args.target))
