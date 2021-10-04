@@ -51,7 +51,7 @@ def testAttacks(model, device, test_loader):
     robust_err_total = 0
     # filehandle = open('./results/logitmin_APGD_L.txt', 'w')
 
-    filename = "/media/jiefei/Guji Mind1/Guji_Projects/rs/LB002_PGD64.txt"
+    filename = "saveLog.txt"
     file_exists = os.path.isfile(filename) 
  
     if file_exists:
